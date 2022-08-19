@@ -3,7 +3,8 @@ from turtle import width
 import streamlit as st 
 import pandas as pd 
 import numpy as np
-import folium 
+import folium
+import plotly.express as px
 from streamlit_folium import folium_static
 from traitlets import default
 
@@ -16,6 +17,13 @@ def get_data(path):
     df= pd.read_csv(path)
     return df
 
+@st.cache (allow_output_mutation= True)
+def get_geofile(url):
+    geofile = geopandas.read_file(url)
+
+    return geofile
+
+
 
 def create_filter(name_filter, data_of_filter):
     str_namefilter = str(name_filter)
@@ -25,6 +33,12 @@ def create_filter(name_filter, data_of_filter):
 
 data = get_data('C:\\Users\\mathe\\Desktop\\PowerBi\\Comunidade_DS\\curso_python_zero_ds\\modulo_5\\kc_house_data.csv')
  
+
+## get geofile
+URL = 'https://opendata.arcgis.com/datasets/83fc2e72903343aabff6de8cb445b81c_2.geojson'
+get_geofile(URL)
+
+
 ## add new features
 
 data['price_m2'] = ((data['price'] / data['sqft_lot']) * 0.09290304 )
@@ -112,11 +126,66 @@ c1, c2 = st.columns((1,1))
 c1.header('Portifolio Density')
 
 
-df = data.sample(10)
+#df = data.sample(10)
 
 ## Base Map - Folium
 
 density = folium.Map(location= [ data['lat'].mean(), data['long'].mean()] , default_zoom_start = 15 ) 
 
+
+marker_cluster = MarkerCluster().add_to(density)
+
+for name, row in df.iterrows():
+    folium.Marker([row['lat'], row['long']],
+    popup = 'Sold R${0} on: {1}. Features: {2} sqft , {3} bedrooms , {4} bathrooms , year built: {5}'.format
+    ( row['price'] , row['date'] , row['sqft_living'], row['bedrooms'], row['bathrooms'], row['yr_built'])).add_to(marker_cluster)
+
+
 with c1: 
     folium_static(density)
+
+
+## Region price map 
+
+c2.header('Price Density')
+
+df = data[['zipcode', 'price']].groupby('zipcode').mean().reset_index()
+# rename dataframe
+
+df.columns = ['ZIP', 'PRICE']
+
+geofile = folium.Map(location= [ data['lat'].mean(), data['long'].mean()] , default_zoom_start = 15 )
+
+with c2:
+    folium_static(geofile)
+
+
+
+
+#===================================================
+# distribuicao dos imoveis por categorias comerciais
+#===================================================
+
+st.sidebar.title('Commercial Options')
+st.title('Commercial attributes')
+
+## Average price per year 
+
+df = data[['yr_built','price']].groupby('yr_built').mean().reset_index()
+
+fig = px.line(df , x = 'yr_built', y = 'price' ,
+ title= 'Change in the average price of real estate by year of construction')
+
+st.plotly_chart(fig, use_container_width= True)
+
+
+## Average price per day
+data['date'] = pd.to_datetime(data['date']).dt.strftime('%Y-%m-%d')
+
+
+df = data[['date','price']].groupby('date').mean().reset_index()
+
+fig = px.line(df , x = 'date', y = 'price' ,
+ title= 'Change in the average price of real estate by day')
+
+st.plotly_chart(fig, use_container_width= True)
