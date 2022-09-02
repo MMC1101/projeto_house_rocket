@@ -59,7 +59,7 @@ f_atribuites = create_filter('Enter Columns', data.columns)
 
 f_zipcode = create_filter('Enter zipcode', data['zipcode'].unique())
 
-df = data.loc[data['zipcode'].isin(f_zipcode), f_atribuites]
+#df = data.loc[data['zipcode'].isin(f_zipcode), f_atribuites]
 
 
 st.title('Data Overview')
@@ -67,29 +67,29 @@ st.title('Data Overview')
 
 
 if (f_atribuites != []) & (f_zipcode != []):
-    data = data.loc[data['zipcode'].isin(f_zipcode), f_atribuites]
+    dfa = data.loc[data['zipcode'].isin(f_zipcode), f_atribuites]
 
 elif (f_atribuites == []) & (f_zipcode != []):
-    data = data.loc[data['zipcode'].isin(f_zipcode), :]
+    dfa = data.loc[data['zipcode'].isin(f_zipcode), :]
 
 elif (f_atribuites != []) & (f_zipcode == []):
-    data = data.loc[:, f_atribuites]
+    dfa = data.loc[:, f_atribuites]
 
 else:
-    data = data.copy()
+    dfa = data.copy()
 
 
-st.dataframe(data)
+st.dataframe(dfa)
 
 
 c1 , c2 = st.columns((1, 1))
 
 ## average metrics
 
-df1 = data[['id','zipcode']].groupby('zipcode').count().reset_index()
-df2 = data[['price','zipcode']].groupby('zipcode').mean().reset_index()
-df3 = data[['sqft_living','zipcode']].groupby('zipcode').mean().reset_index()
-df4 = data[['price_m2','zipcode']].groupby('zipcode').mean().reset_index()
+df1 = data.loc[:, ['id','zipcode']].groupby('zipcode').count().reset_index()
+df2 = data.loc[:, ['price','zipcode']].groupby('zipcode').mean().reset_index()
+df3 = data.loc[:, ['sqft_living','zipcode']].groupby('zipcode').mean().reset_index()
+df4 = data.loc[:, ['price_m2','zipcode']].groupby('zipcode').mean().reset_index()
 
 ## merge of dataframes 
 
@@ -310,30 +310,46 @@ f_bedrooms = st.sidebar._selectbox('Max number of bedrooms', data['bedrooms'].so
 
 f_bathrooms = st.sidebar._selectbox('Choose the number of bathrooms', data['bathrooms'].round(0).astype(np.int64).sort_values().unique())
 
+f_floors = st.sidebar.selectbox('Max number of floor', data['floors'].sort_values().unique())
+
+f_waterview = st.sidebar.checkbox('Only Houses with water view')
+
+
 c3, c4 = st.columns(2)
 
 
 ## House per bedrooms 
-c3.header('Houses per bedrooms')
+c3.header('Number of bedrooms')
 
 
-df = data[data['bedrooms'] < f_bedrooms] 
+df = data.loc[data['bedrooms'] < f_bedrooms] 
 fig = px.histogram(df, x= 'bedrooms', nbins=19)
 c3.plotly_chart(fig, use_container_width=True)
 
 ### House per bathrooms
-c4.header('Houses per bathrooms') 
-df = data[data['bathrooms'] < f_bathrooms]
+c4.header('Number of bathrooms') 
+df = data.loc[data['bathrooms'] < f_bathrooms]
 fig = px.histogram(df, x= 'bathrooms', nbins=19)
 c4.plotly_chart(fig, use_container_width=True)
 
 
+c5, c6 = st.columns(2)
+
+
 # ## House per floors 
-# fig = px.histogram(df, x= 'floors', nbins=19)
-# st.plotly_chart(fig, use_container_width=True)
+c5.header('Number of floor')
+df = data.loc[data['floors'] < f_floors]
+fig = px.histogram(df, x= 'floors', nbins=19)
+c5.plotly_chart(fig, use_container_width=True)
 
 # ## House oer water view
 
-# fig = px.histogram(df, x= 'waterfront', nbins=19)
-# st.plotly_chart(fig, use_container_width=True)
+if f_waterview:
+    df = data.loc[(data['waterfront']) == 1, 'waterfront']
+else: 
+    df = data.copy()
+
+c6.header('water view')
+fig = px.histogram(df, x= 'waterfront', nbins=19)
+c6.plotly_chart(fig, use_container_width=True)
 
