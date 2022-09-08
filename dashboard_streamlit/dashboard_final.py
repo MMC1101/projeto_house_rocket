@@ -1,6 +1,6 @@
 from unicodedata import decimal
 import geopandas
-from turtle import width
+#from turtle import width
 import streamlit as st 
 import pandas as pd 
 import numpy as np
