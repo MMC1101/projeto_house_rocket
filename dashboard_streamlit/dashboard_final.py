@@ -19,6 +19,8 @@ st.set_page_config(layout= 'wide')
 
 def get_data(path):
     data = pd.read_csv(path , sep = ',')
+    data = data.iloc[0:5000, :]
+
     return data
 
 @st.cache (allow_output_mutation= True)
@@ -115,7 +117,7 @@ def create_map(data, geofile):
 
 
     st.title('Region Overview')
-    c1, c2 = st.columns((1,1))
+    c1, c2 = st.columns([1,1])
     c1.header('Portifolio Density')   
 
 ## Base Map - Folium
@@ -143,20 +145,30 @@ def create_map(data, geofile):
     c2.header('Price Density')
 
     df3 = data[['zipcode', 'price']].groupby('zipcode').mean().reset_index()
+    region_price_map  = folium.Map(location= [data['lat'].mean(), data['long'].mean()] , default_zoom_start = 15 )
+    df3.columns = ['ZIPCODE', 'PRICE']
+    df3['ZIPCODE'] = df3['ZIPCODE'].astype('str')
+    geofile_zip = geofile[geofile['ZIPCODE'].isin(df3['ZIPCODE'].tolist())]
+
+
+
+
 # rename dataframe
 
-    df3.columns = ['ZIP', 'PRICE']
 
-    geofile = geofile[geofile['ZIP'].isin(df3['ZIP'].tolist())]
-  
-    region_price_map  = folium.Map(location= [data['lat'].mean(), data['long'].mean()] , default_zoom_start = 15 )
-
-    region_price_map.choropleth(geo_data = geofile,
+    region_price_map.choropleth(geo_data = geofile_zip,
+                            name="choropleth",
                             data = df3,
-                            columns = ['ZIP', 'PRICE'],
-                            Key_on = 'feature.properties.ZIP',
-                            fill_color='YlGnBu', fill_opacity=.7, line_opacity=.2,
+                            columns = ['ZIPCODE', 'PRICE'],
+                            Key_on = 'feature.properties.ZIPCODE',
+                            fill_color ='YlOrRd', 
+                            fill_opacity =.7, 
+                            line_opacity =.2,
                             legend_name = 'AVG PRICE')
+
+    folium.GeoJson(geofile_zip.merge(df3,on='ZIPCODE'),tooltip=folium.GeoJsonTooltip(fields=['ZIPCODE','PRICE'],
+    aliases=['zipcode', 'average price$'], labels=True,sticky=False) ).add_to(region_price_map)
+    
     with c2:
         folium_static(region_price_map)
 
@@ -186,7 +198,7 @@ def commercial_distribuition(data):
     st.sidebar.subheader('Select Max Year Built')
     st.header('Average Price per Year built')
 
-    f_year_built = st.sidebar.slider('Year Built', min_year_built , max_year_built , min_year_built)
+    f_year_built = st.sidebar.slider('Year Built', min_year_built , max_year_built , max_year_built)
 
 
 
@@ -256,11 +268,11 @@ def attributes_distribution(data):
 
 ## Filters 
 
-    f_bedrooms = st.sidebar.selectbox('Max number of bedrooms', sorted(set(data['bedrooms'].unique())))
+    f_bedrooms = st.sidebar.selectbox('Max number of bedrooms', sorted(set(data['bedrooms'].unique())), index= 2)
 
-    f_bathrooms = st.sidebar.selectbox('Choose the number of bathrooms', sorted(set(data['bathrooms'].unique())) )
+    f_bathrooms = st.sidebar.selectbox('Choose the number of bathrooms', sorted(set(data['bathrooms'].unique())), index= 3)
 
-    f_floors = st.sidebar.selectbox('Max number of floor', data['floors'].sort_values().unique())
+    f_floors = st.sidebar.selectbox('Max number of floor', data['floors'].sort_values().unique(), index= 2)
 
     f_waterview = st.sidebar.checkbox('Only Houses with water view')
 
@@ -326,4 +338,5 @@ if __name__ == '__main__' :
     commercial_distribuition(data)
 
     attributes_distribution(data)
+
 
