@@ -19,7 +19,7 @@ Para realizaçao do projeto o dataset utilizado foi coletado do Kaggle: <https:/
 
 As ferramentas utilizada para todo o projeto foram: 
 
-- Tratamento dos dados e análise de dados[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+- Tratamento dos dados e análise de dados [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 - Desenvolvimento do dashboard - Streamlit 
 - Serviço em cloud de hospedagem do dashboard [![forthebadge made-with-python](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://www.heroku.com/)
 
