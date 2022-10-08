@@ -19,7 +19,7 @@ Para realizaçao do projeto o dataset utilizado foi coletado do Kaggle: <https:/
 
 As ferramentas utilizada para todo o projeto foram: 
 
-- Tratamento dos dados e análise de dados [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+- Tratamento dos dados e análise de dados[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 - Desenvolvimento do dashboard - Streamlit 
 - Serviço em cloud de hospedagem do dashboard [![forthebadge made-with-python](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://www.heroku.com/)
 
@@ -75,6 +75,51 @@ representa uma coluna da base de dados
        Resultado financeiro do projeto
        Considerações finais
        
+
+
+# Insights gerados ao final da Análise e Tomada decisões que podem serem realizadas 
+
+
+### Hipótese_1 - Imóveis com vista para água são mais valorizados em mais de  130 % 
+
+Falso: A valorização é muito maior em torno de 212% dos imóveis com vista para água comparados ao imóveis sem vista, concluído que é bastante rentável comprar imóveis com vista para água
+
+![insights_1](https://user-images.githubusercontent.com/65685947/193933833-46600c31-a0fa-4d56-9d50-cfaaabf2bfd4.png)
+
+### Hipótese_2 Imóveis com mais de 2 pisos são mais valorizados em 20 % em relação os imóveis com únicos piso
+
+Falso: Imóveis com mais de 2 pisos não tem o dobro de valorização comparado aos imóveis que só tem único pisco 
+imóveis com maios de 2 pisos possui valorização média de 39% comparado aos imóveis com único piso
+
+![insights_2](https://user-images.githubusercontent.com/65685947/193936235-a544d0a6-6534-4774-9f61-f5fadaf25f43.png)
+
+
+### Hipótese_3 Imóveis novos sem reforma são 20% mais caros que imóveis velhos reformados
+Falso: Os imóveis novos sem reforma são 10% mais baratos que os imóveis velhos reformados , assim no momento de compra da House Rocket priorizar imóveis novos sem reforma
+
+![insights_3](https://user-images.githubusercontent.com/65685947/193936835-3d67e3dc-b956-4de9-8b17-d5afb06f2f74.png)
+
+
+### H4 - Imóveis com 3 ou mais Banheiros tem lucro de 50% a mais que imóveis que tem menos de 3 banheiros
+Falso: Os imóveis com 3 ou mais Banheiros , são em torno de 25% mais lucrativo em média em comparação com imóveis que tem menos de 3 banheiros
+
+![insights_7](https://user-images.githubusercontent.com/65685947/194678186-9ea15fe7-683e-4a6e-8cd7-62d069ad8c9e.png)
+
+
+### H5 A estação do verão tem em média de lucro em 30% a mais em relação a todas outras estações 
+Falso: A estação de verão tem em média lucro de 3% a mais em relação a todas outras estações
+
+![ìnsights_5](https://user-images.githubusercontent.com/65685947/194676845-c997cdf8-4f47-4975-940f-35767ac1a914.png)
+
+
+| **Insights**                                                   | **Aplicação na tomada de decisão de negócio**                                                  | 
+| ------------------------------------------------------------ |  ------------------------------------------------------------ |
+| **1** - Imóveis com vista para água são valorizados em mais de 212% | Realizar compras de imóveis com vista para água                      |
+| **2** -  imóveis com mais de 2 pisos possui valorização média de 39% comparado aos imóveis com único piso | Comprar imóveis com pelo menos dois pisos, ou comprar imóvel com único banheiro e dependendo da condição do imóvel adicionar um banheiro  porque irá valorizar em 39 % na venda|
+| **3** - Imóveis novos sem reforma são 10% mais baratos que imóveis antigos reformados | Realizar compra de imóveis novos diminui os gastos com reforma e se mantém valorizando                      |
+| **4** - Imóveis com 3 ou mais banheiros são 25% mais lucrativo em comparação com imóveis que tem menos de 3 banheiros| Investir na compra de imóveis que tem 3 ou mais  banheiros|
+| **5** - A estação de verão tem em média lucro de 3% a mais em relação a todas outras estaçõe | Investir na venda de imóveis no período do verão ou no período da primavera  
+
 
 
 
