@@ -120,7 +120,12 @@ Falso: A estação de verão tem em média lucro de 3% a mais em relação a tod
 | **4** - Imóveis com 3 ou mais banheiros são 25% mais lucrativo em comparação com imóveis que tem menos de 3 banheiros| Investir na compra de imóveis que tem 3 ou mais  banheiros|
 | **5** - A estação de verão tem em média lucro de 3% a mais em relação a todas outras estaçõe | Investir na venda de imóveis no período do verão ou no período da primavera  
 
+# Dashboard solicitado pelo CEO.
 
+![portfolio_AdobeExpress](https://user-images.githubusercontent.com/65685947/196809179-3b7b355e-9c16-464e-b0a1-078c2a4becb8.gif)
+
+
+https://user-images.githubusercontent.com/65685947/196807775-9fc63ba7-38e0-4907-af6d-ef960ef95ac7.mp4
 
 
 
