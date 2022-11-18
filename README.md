@@ -102,13 +102,13 @@ Falso: Os imóveis novos sem reforma são 10% mais baratos que os imóveis velho
 ![insights_3](https://user-images.githubusercontent.com/65685947/193936835-3d67e3dc-b956-4de9-8b17-d5afb06f2f74.png)
 
 
-### H4 - Imóveis com 3 ou mais Banheiros tem lucro de 50% a mais que imóveis que tem menos de 3 banheiros
+### Hipótese_4 - Imóveis com 3 ou mais Banheiros tem lucro de 50% a mais que imóveis que tem menos de 3 banheiros
 Falso: Os imóveis com 3 ou mais Banheiros , são em torno de 25% mais lucrativo em média em comparação com imóveis que tem menos de 3 banheiros
 
 ![insights_7](https://user-images.githubusercontent.com/65685947/194678186-9ea15fe7-683e-4a6e-8cd7-62d069ad8c9e.png)
 
 
-### H5 A estação do verão tem em média de lucro em 30% a mais em relação a todas outras estações 
+### Hipótese_5 A estação do verão tem em média de lucro em 30% a mais em relação a todas outras estações 
 Falso: A estação de verão tem em média lucro de 3% a mais em relação a todas outras estações
 
 ![ìnsights_5](https://user-images.githubusercontent.com/65685947/194676845-c997cdf8-4f47-4975-940f-35767ac1a914.png)
